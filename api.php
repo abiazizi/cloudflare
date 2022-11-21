@@ -1,10 +1,10 @@
 <?php
-$api 	= '35344e8127fd83ab14fb0980dde5e39b38d5c';
-$email 	= 'abiazizi465@gmail.com';
-$id 	= '942a0c545bf6fa7568124e1b4b28a248';
+$api 	= '35344e8127fd83ab14fb0980dde5e39b38***'; // https://dash.cloudflare.com/profile/api-tokens and get global api key
+$email 	= 'abiazizi465@gmail.com'; // email account
+$id 	= '942a0c545bf6fa7568124e1b4b28a***'; // https://dash.cloudflare.com/{account_id}
 
 $header = ['X-Auth-Key: '.$api, 'X-Auth-Email: '.$email, 'Content-Type: application/json'];
-$dns 	= 'vps.fella.id';
+$dns 	= 'vps.*****.com'; // ip or target your server
 $list 	= file($argv[1], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 foreach( $list as $k => $domain){
