@@ -4,7 +4,7 @@ $email 	= '';
 $id 	= '';
 
 $header = ['X-Auth-Key: '.$api, 'X-Auth-Email: '.$email, 'Content-Type: application/json'];
-$dns 	= 'vps.fella.id';
+$dns 	= '';
 $list 	= file($argv[1], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 foreach( $list as $k => $domain){
