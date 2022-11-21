@@ -1,10 +1,10 @@
 <?php
-$api 	= '';
-$email 	= '';
-$id 	= '';
+$api 	= '35344e8127fd83ab14fb0980dde5e39b38d5c';
+$email 	= 'abiazizi465@gmail.com';
+$id 	= '942a0c545bf6fa7568124e1b4b28a248';
 
 $header = ['X-Auth-Key: '.$api, 'X-Auth-Email: '.$email, 'Content-Type: application/json'];
-$dns 	= '';
+$dns 	= 'vps.fella.id';
 $list 	= file($argv[1], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 foreach( $list as $k => $domain){
@@ -20,6 +20,8 @@ foreach( $list as $k => $domain){
 		$zoneid = $add_domain->result->id;
 		$nameserver1 = $add_domain->result->name_servers[0];
 		$nameserver2 = $add_domain->result->name_servers[1];
+		echo "\t[Name Server 1] : ".$name_server1."\n";
+		echo "\t[Name Server 2] : ".$name_server2."\n";
 
 		$set_dns 	= curl('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/dns_records', '{"type":"CNAME","name":"*","content":"'.$dns.'","ttl":3600,"proxied":true}', $header);
 		$set_dns 	= curl('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/dns_records', '{"type":"CNAME","name":"@","content":"'.$dns.'","ttl":3600,"proxied":true}', $header);
