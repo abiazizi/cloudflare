@@ -1,6 +1,6 @@
 <?php
 $api 	= '35344e8127fd83ab14fb0980dde5e39b38***'; // https://dash.cloudflare.com/profile/api-tokens and get global api key
-$email 	= 'abiazizi465@gmail.com'; // email account
+$email 	= '****@gmail.com'; // email account
 $id 	= '942a0c545bf6fa7568124e1b4b28a***'; // https://dash.cloudflare.com/{account_id}
 
 $header = ['X-Auth-Key: '.$api, 'X-Auth-Email: '.$email, 'Content-Type: application/json'];
