@@ -13,40 +13,40 @@ foreach( $list as $k => $domain){
 		$add_domain = curl('https://api.cloudflare.com/client/v4/zones', '{"account": {"id": "'.$id.'"}, "name":"'.$domain.'","jump_start":true}', $header);
 
 		if( $add_domain->success === false ){
-			throw new Exception($add_domain, 1);
+			throw new Exception(json_encode($add_domain, JSON_PRETTY_PRINT), 1);
 		}
 		echo "> Status : Success Added to Cloudflare\n";
 
 		$zoneid = $add_domain->result->id;
-		$nameserver1 = $add_domain->result->name_servers[0];
-		$nameserver2 = $add_domain->result->name_servers[1];
-		echo "\t[Name Server 1] : ".$name_server1."\n";
-		echo "\t[Name Server 2] : ".$name_server2."\n";
+		$nameserver1 = $add_domain->result->name_servers['0'];
+		$nameserver2 = $add_domain->result->name_servers['1'];
+		echo "\t[Name Server 1] : ".$nameserver1."\n";
+		echo "\t[Name Server 2] : ".$nameserver2."\n";
 
 		$set_dns 	= curl('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/dns_records', '{"type":"CNAME","name":"*","content":"'.$dns.'","ttl":3600,"proxied":true}', $header);
 		$set_dns 	= curl('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/dns_records', '{"type":"CNAME","name":"@","content":"'.$dns.'","ttl":3600,"proxied":true}', $header);
 
 		if( $set_dns->success === false ){
-			throw new Exception($set_dns, 1);
+			throw new Exception(json_encode($set_dns, JSON_PRETTY_PRINT), 1);
 		}
 		echo "> Status : Success Set DNS to ".$dns."\n";
 
 		$set_flexible 	= curl_patch('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/settings/ssl', '{"value": "flexible"}', $header);
 
 		if( $set_flexible->success === false ){
-			throw new Exception($set_flexible, 1);
+			throw new Exception(json_encode($set_flexible, JSON_PRETTY_PRINT), 1);
 		}
 		echo "> Status : Success Set SSL to Flexible\n";
 
 		$set_https 	= curl_patch('https://api.cloudflare.com/client/v4/zones/'.$zoneid.'/settings/always_use_https', '{"value": "on"}', $header);
 
 		if( $set_https->success === false ){
-			throw new Exception($set_https, 1);
+			throw new Exception(json_encode($set_https, JSON_PRETTY_PRINT), 1);
 		}
 		echo "> Status : Success Set Always HTTPS\n";
 		
 	} catch (Exception $e) {
-		print_r(json_encode($e, JSON_PRETTY_PRINT));
+		print_r($e);
 		exit;
 	}
 }
